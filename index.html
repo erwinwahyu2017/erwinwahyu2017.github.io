@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quis</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+     <style>
+       html,body {
+    margin:0;
+    padding:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: royalblue;
+}
+.bungkus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height:915px;
+    background-color: royalblue;
+}
+
+.soal1 td {
+            border:1px solid #b3adad;
+            text-align:center;
+            padding:2px;
+            width: 70px;    
+        }
+.soal1{
+    border: 30px;
+    border-radius: 10px;
+}
+
+#jawab{
+    width: 75px;
+    height: 50px;
+}
+    </style>
+</head>
+<body>
+<div class="bungkus">
+    <div class="border">
+                    <div class="question bg-white p-3 border-bottom">
+                        <div >
+                            <h4>MCQ Quiz</h4><h5 id="time">01:00</h5></div>
+                    </div>
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row align-items-center question-title">
+                         
+                           
+    <table class="soal1">
+            <tr>
+                <td id="satu">&nbsp;</td>
+                <td id="satu">&nbsp;</td>
+                <td id="satu">&nbsp;</td>
+                <td id="satu">&nbsp;</td> 
+                <td id="satu">&nbsp;</td> 
+            </tr>
+        <tr>
+            <td id="dua">A</td> 
+            <td id="dua">B</td> 
+            <td id="dua">C</td> 
+            <td id="dua">D</td> 
+            <td id="dua">E</td> 
+        </tr>
+    </table>
+   
+
+
+        <div  class="soal2">
+            <table border="1px" style="width: 230px; ">
+                <tbody>
+                        <tr>
+                            <td id="soal" colspan="5" style=" text-align:center;">&nbsp;</td>
+                        </tr>
+                            
+                        </tbody>
+                    </table>
+
+
+
+                    <table >
+                        <tr>
+                                <td ><button id="jawab" onclick="jawab(1)">A</button></td> 
+                                <td ><button id="jawab" onclick="jawab(2)">B</button></td> 
+                                <td ><button id="jawab" onclick="jawab(3)">C</button></td> 
+                                <td ><button id="jawab" onclick="jawab(4)">D</button></td> 
+                                <td ><button id="jawab" onclick="jawab(5)">E</button></td> 
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var jawaban = 0;
+var score = 0;
+var initial = 0;
+    function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    var i = 0;
+    setInterval(function () {
+       
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+        
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+       
+        if (seconds < 2 && seconds >0) {
+            i=i+1;
+            initial = i;
+            var currentTime = new Date().getTime();
+            while (currentTime + 2000 >= new Date().getTime()) {
+                if(i >= 3){
+                    alert('Waktu Habis Score : '+score);
+                    
+                }else{
+                    acak(i);
+            duration = 60;
+                }
+   
+   
+          
+        }
+    }
+
+    }, 1000);
+}
+
+window.onload = function () {
+    acak(0);
+    var fiveMinutes = 60 * 1,
+    display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+
+function acak(i){
+    var alphabet = ["abcdefghijklmnopqrstuvwxyz","123456789","!@#$%^&*()_+"]
+   
+    var simpantext = "";
+    var hurufsebelumnya = "";
+    var hitung =1;
+    var a =1;
+     jawaban = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+    $('td[id="satu"]').each(function () {
+        var randomCharacter = alphabet[i][Math.floor(Math.random() * alphabet[i].length)];
+        alphabet[i] = alphabet[i].replace(randomCharacter,'')
+        $(this).text(randomCharacter);
+
+var a = Math.floor(Math.random() * (1 - 0 + 1) + 0);
+if (a == 1) {
+    if (jawaban != hitung) {
+        simpantext = randomCharacter+simpantext;
+        
+    }
+   
+    
+}else{
+    if (jawaban != hitung) {
+        simpantext = simpantext+randomCharacter;
+    }
+    
+   
+}
+hitung = hitung +1;
+
+});
+$('td[id="soal"]').text(simpantext);
+}
+
+function jawab(index){
+    if (jawaban == index) {
+        acak(initial);
+        score = score+1;
+       
+        
+    }else{
+        acak(initial);
+        
+    }
+ 
+}
+</script>
+</html>
